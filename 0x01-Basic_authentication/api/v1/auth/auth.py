@@ -16,19 +16,24 @@ class Auth():
         """
         Require auth
         """
-        if path is None or excluded_paths is None:
+        if path is None:
             return True
         
-        excluded_paths = []
-        for path in excluded_paths:
-            if path[-1] != '/':
-                excluded_paths.append(path + '/')
-            else:
-                excluded_paths.append(path)
-
+        if excluded_paths is None or excluded_paths == []:
+            return True
+        
         if path in excluded_paths:
             return False
         
+        if path[-1] != '/':
+            path += '/'
+        
+        for ex_path in excluded_paths:
+            if ex_path[-1] != '/':
+                ex_path += '/'
+            if path == ex_path:
+                return False
+
         return False
     
 
@@ -36,8 +41,13 @@ class Auth():
         """
         Authorization header
         """
-        return None
-    
+        if request is None:
+            return None
+        if request.headers.get('Authorization') is None:
+            return None
+
+        return request.headers.get('Authorization')
+
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
