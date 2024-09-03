@@ -18,16 +18,16 @@ class Auth():
         """
         if path is None:
             return True
-        
+
         if excluded_paths is None or excluded_paths == []:
             return True
-        
+
         if path in excluded_paths:
             return False
-        
+
         if path[-1] != '/':
             path += '/'
-        
+
         for ex_path in excluded_paths:
             if ex_path[-1] != '/':
                 ex_path += '/'
@@ -35,7 +35,6 @@ class Auth():
                 return False
 
         return False
-    
 
     def authorization_header(self, request=None) -> str:
         """
@@ -47,7 +46,6 @@ class Auth():
             return None
 
         return request.headers.get('Authorization')
-
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
