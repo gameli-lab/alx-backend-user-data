@@ -105,7 +105,7 @@ class BasicAuth(Auth):
             return None
         user = self.user_object_from_credentials(email, pwd)
         return user
-    
+
     def extract_user_credentials(self, decoded_base64_authorization_header):
         """
         Extract user credentials
