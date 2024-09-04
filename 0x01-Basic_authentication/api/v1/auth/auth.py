@@ -29,10 +29,14 @@ class Auth():
             path += '/'
 
         for ex_path in excluded_paths:
-            if ex_path[-1] != '/':
-                ex_path += '/'
-            if path == ex_path:
-                return False
+            if ex_path.endswith('/*'):
+                if path.startswith(ex_path[:-1]):
+                    return False
+            else:
+                if ex_path[-1] != '/':
+                    ex_path += '/'
+                if path == ex_path:
+                    return False
 
         return True
 
