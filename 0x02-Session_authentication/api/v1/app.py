@@ -42,7 +42,7 @@ def before_request() -> str:
         return
     if auth.authorization_header(request) is None:
         abort(401)
-    
+ 
     c_user = auth.current_user(request)
     if c_user is None:
         abort(403)
