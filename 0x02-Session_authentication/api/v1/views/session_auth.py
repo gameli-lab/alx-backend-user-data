@@ -41,7 +41,7 @@ def create_session() -> str:
     session_name = os.getenv('SESSION_NAME')
     user_json = user.to_json()
     res = make_response(jsonify(user_json))
-    res.set_coockie(session_name, session_id)
+    res.set_cookie(session_name, session_id)
     return res
 
 
