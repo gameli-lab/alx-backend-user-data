@@ -42,7 +42,7 @@ class SessionAuth(Auth):
         user_id = self.user_id_for_session_id(session_id)
         if user_id is None:
             return None
-        
+
         try:
             return User.get(user_id)
         except Exception:
