@@ -132,6 +132,6 @@ def auth_user() -> str:
     Return:
       - The current User objects JSON represented
     """
-    if g.get('current_user') is None:
+    if request.current_user is None:
         return jsonify({"error": "Not authorized"}), 401
-    return jsonify(current_user.to_json())
+    return jsonify(request.current_user.to_json())
