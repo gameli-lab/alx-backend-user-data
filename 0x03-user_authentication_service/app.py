@@ -20,11 +20,17 @@ def index() -> str:
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def users(email, password) -> str:
     """creates a new user"""
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    if not email or not password:
+        return jsonify({"message": "email and password are required"}), 400
+    
     try:
         user = AUTH.register_user(email=email, password=password)
-        return jsonify({"email": "{user.email}", "message": "user created"})
-    except Exception:
-        return jsonify({"message": "email already registered"}), 400
+        return jsonify({f"email": "{user.email}", "message": "user created"})
+    except Exception as e:
+        return jsonify({f"message": "email already registered"}), 400
 
 
 if __name__ == "__main__":
