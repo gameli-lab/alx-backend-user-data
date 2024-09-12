@@ -9,7 +9,7 @@ Base = declarative_base()
 
 
 class User(Base):
-    """sqlalchemy model user """
+    """sqlalchemy model user inheriting from base """
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
