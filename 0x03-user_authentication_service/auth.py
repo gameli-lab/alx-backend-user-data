@@ -38,7 +38,7 @@ class Auth:
     def valid_login(self, email: str, password: str) -> bool:
         """validates login"""
         try:
-            user = self.find_user_by(email=email)
+            user = self._db.find_user_by(email=email)
             if user and user.hashed_password:
                 return bcrypt.checkpw(password.encode('utf-8'),
                                       user.hashed_password)
@@ -49,3 +49,17 @@ class Auth:
     def _generate_uuid(self) -> str:
         ''' generates a uuid and return its string rep'''
         return str(uuid.uuid4())
+
+    def create_session(self, email: str) -> str:
+        '''
+        create_session method:
+            - param- email
+            return: the session ID as a string.
+        '''
+        try:
+            user = self._db.find_user_by(email=email)
+            session_id = self._generate_uuid()
+            self._db.update_user(user.id, session_id=session_id)
+            return session_id
+        except Exception:
+            raise ValueError("No user found")
