@@ -51,5 +51,3 @@ class DB:
             if hasattr(user, key):
                 setattr(user, key, value)
                 self._session.commit()
-                print(user.hashed_password)
-                print(password.encode('utf-8'))
