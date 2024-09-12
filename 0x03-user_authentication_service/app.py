@@ -25,7 +25,7 @@ def users() -> str:
 
     if not email or not password:
         return jsonify({"message": "email and password are required"}), 400
-    
+
     try:
         user = AUTH.register_user(email=email, password=password)
         return jsonify({"email": user.email, "message": "user created"})
